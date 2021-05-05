@@ -23,28 +23,27 @@ export const perActiveClientsPayout = {
 }
 
 function npsCalculator(npsSlab, lt30, bt30_40, bt40_50, bt50_60, bt60_70, gt70) {
-    switch (npsSlab) {
-        case npsSlab < 30: {
+    switch (true) {
+        case npsSlab <= 30: {
             return lt30
         }
-        case npsSlab >= 30 && npsSlab < 40: {
+        case npsSlab > 30 && npsSlab <= 40: {
             return bt30_40
         }
-        case npsSlab >= 40 && npsSlab < 50 : {
+        case npsSlab > 40 && npsSlab <= 50 : {
             return bt40_50
         }
-        case npsSlab >= 50 && npsSlab < 60: {
+        case npsSlab > 50 && npsSlab <= 60: {
             return bt50_60
         }
-        case npsSlab >= 60 && npsSlab < 70: {
+        case npsSlab > 60 && npsSlab <= 70: {
             return bt60_70
         }
-        case npsSlab >= 70: {
+        case npsSlab > 70: {
             return gt70
         }
         default: {
-            console.log(npsSlab)
-            throw new Error("Argument miss match")
+            console.log(npsSlab, typeof npsSlab)
         }
     }
 }
