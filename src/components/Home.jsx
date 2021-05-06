@@ -458,46 +458,49 @@ export default function Home(props) {
                                 {`Testimonials ( ₹${testimonialsIncentive()} )`}
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={3} container alignContent="center">
-                            <Typography variant="body2" className={classes.testimonialSelectors}>
+                        <Grid item xs={1} container direction="column" alignContent="flex-end" justify="space-evenly">
+                            <Typography variant="body2" className={classes.testimonialSelectors} gutterBottom>
                                 Text
                             </Typography>
-                            <IconButton size="small" onClick={() => {
-                                if (textTestimonials > 0)
-                                    setTextTestimonials(textTestimonials - 1)
-                            }}>
-                                <RemoveIcon fontSize="inherit"/>
-                            </IconButton>
-                            <Typography variant="body2" color="textSecondary" className={classes.textValue}>
-                                {textTestimonials}
-                            </Typography>
-                            <IconButton size="small" onClick={() => {
-                                if (textTestimonials < 10)
-                                    setTextTestimonials(textTestimonials + 1)
-                            }}>
-                                <AddIcon fontSize="inherit"/>
-                            </IconButton>
-                        </Grid>
-                        <Grid item xs={false} sm={1}/>
-                        <Grid item xs={12} sm={3} container alignContent="center">
                             <Typography variant="body2" className={classes.testimonialSelectors}>
                                 Video
                             </Typography>
-                            <IconButton size="small" onClick={() => {
-                                if (videoTestimonials > 0)
-                                    setVideoTestimonials(videoTestimonials - 1)
-                            }}>
-                                <RemoveIcon fontSize="inherit"/>
-                            </IconButton>
-                            <Typography variant="body2" color="textSecondary" className={classes.textValue}>
-                                {videoTestimonials}
-                            </Typography>
-                            <IconButton size="small" onClick={() => {
-                                if (videoTestimonials < 10)
-                                    setVideoTestimonials(videoTestimonials + 1)
-                            }}>
-                                <AddIcon fontSize="inherit"/>
-                            </IconButton>
+                        </Grid>
+                        <Grid item xs container direction="column" spacing={1}>
+                            <Grid item container>
+                                <IconButton size="small" onClick={() => {
+                                    if (textTestimonials > 0)
+                                        setTextTestimonials(textTestimonials - 1)
+                                }}>
+                                    <RemoveIcon fontSize="inherit"/>
+                                </IconButton>
+                                <Typography variant="body2" color="textSecondary" className={classes.textValue}>
+                                    {textTestimonials}
+                                </Typography>
+                                <IconButton size="small" onClick={() => {
+                                    if (textTestimonials < 10)
+                                        setTextTestimonials(textTestimonials + 1)
+                                }}>
+                                    <AddIcon fontSize="inherit"/>
+                                </IconButton>
+                            </Grid>
+                            <Grid item container>
+                                <IconButton size="small" onClick={() => {
+                                    if (videoTestimonials > 0)
+                                        setVideoTestimonials(videoTestimonials - 1)
+                                }}>
+                                    <RemoveIcon fontSize="inherit"/>
+                                </IconButton>
+                                <Typography variant="body2" color="textSecondary" className={classes.textValue}>
+                                    {videoTestimonials}
+                                </Typography>
+                                <IconButton size="small" onClick={() => {
+                                    if (videoTestimonials < 10)
+                                        setVideoTestimonials(videoTestimonials + 1)
+                                }}>
+                                    <AddIcon fontSize="inherit"/>
+                                </IconButton>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid id="shift-grid" item xs={12} container>
