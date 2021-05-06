@@ -1,26 +1,25 @@
-import {
-    Button,
-    Container,
-    makeStyles,
-    Paper,
-    Typography,
-    Grid,
-    Avatar,
-    IconButton,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
-    Slider,
-    Input,
-    TextField,
-    Checkbox,
-    AppBar,
-    Toolbar,
-    useScrollTrigger,
-    InputAdornment, withStyles, Tooltip,
-} from "@material-ui/core";
-import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 import {cloneElement, useState} from "react";
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar'
+import IconButton from '@material-ui/core/IconButton'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Radio from '@material-ui/core/Radio'
+import Slider from '@material-ui/core/Slider'
+import Input from '@material-ui/core/Input'
+import TextField from '@material-ui/core'
+import Checkbox from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Tooltip from '@material-ui/core/Tooltip'
+import {useScrollTrigger, withStyles, makeStyles} from "@material-ui/core";
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
+import ToggleButton from '@material-ui/lab/ToggleButton'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -458,7 +457,7 @@ export default function Home(props) {
                                 {`Testimonials ( ₹${testimonialsIncentive()} )`}
                             </Typography>
                         </Grid>
-                        <Grid item xs={1} container direction="column" alignContent="flex-end" justify="space-evenly">
+                        <Grid item xs={2} container direction="column" alignContent="flex-end" justify="space-evenly">
                             <Typography variant="body2" className={classes.testimonialSelectors} gutterBottom>
                                 Text
                             </Typography>
