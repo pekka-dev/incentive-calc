@@ -21,7 +21,7 @@ import {
     AppBar,
     Toolbar,
     useScrollTrigger,
-    InputAdornment,
+    InputAdornment, withStyles, Tooltip,
 } from "@material-ui/core";
 import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 import {cloneElement, useState} from "react";
@@ -47,15 +47,17 @@ const useStyles = makeStyles((theme) => ({
     backNavigationButton: {
         marginRight: theme.spacing(1)
     },
-    coachSelector: {
-
-    },
+    coachSelector: {},
     clients: {
         marginTop: theme.spacing(2)
     },
     sliderInput: {
         width: 42,
         marginLeft: theme.spacing(6),
+    },
+    avatarLarge: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
     }
 }))
 
@@ -71,11 +73,29 @@ function ElevationScroll(props) {
     });
 }
 
+const StyledToggleButtonGroup = withStyles((theme) => ({
+    root: {
+        border: "none"
+    },
+    grouped: {
+        margin: theme.spacing(0.5, 2),
+        border: "none",
+        "&:not(:first-child)": {
+            width: theme.spacing(11),
+            height: theme.spacing(11),
+            borderRadius: "100%"
+        },
+        "&:first-child": {
+            width: theme.spacing(11),
+            height: theme.spacing(11),
+            borderRadius: "100%"
+        }
+    }
+}))(ToggleButtonGroup);
 
 export default function Home(props) {
     const classes = useStyles()
     const [coach, setCoach] = useState("junior")
-    const [dialogOpen, setDialogOpen] = useState(false)
     const [activeClients, setActiveClients] = useState(1)
     const [npsSlab, setNpsSlab] = useState(30)
     const [newSaleRev, setNewSaleRev] = useState(0)
@@ -131,16 +151,9 @@ export default function Home(props) {
         setShift("shift1")
     }
 
-    const handleDialogOpen = () => {
-        setDialogOpen(true)
-    }
-
-    const handleDialogClose = () => {
-        setDialogOpen(false)
-    }
-
     const handleCoachSelect = (e, coachValue) => {
-        setCoach(coachValue)
+        if (coachValue)
+            setCoach(coachValue)
     }
 
     const handleActiveClientsSliderChange = (event, value) => {
@@ -248,24 +261,41 @@ export default function Home(props) {
             <div className={classes.clients}>
                 <Grid container justify="center" spacing={2}>
                     <Grid id="couch-grid" item xs={12} className={classes.coachSelector} container justify="center">
-                        <ToggleButtonGroup
+                        <StyledToggleButtonGroup
                             value={coach}
                             exclusive
                             onChange={handleCoachSelect}
+                            size="large"
                         >
                             <ToggleButton value="junior">
-                                J
+                                <Tooltip title="Junior">
+                                    <Avatar className={classes.avatarLarge}>
+                                        J
+                                    </Avatar>
+                                </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="senior">
-                                S
+                                <Tooltip title="Senior">
+                                    <Avatar className={classes.avatarLarge}>
+                                        S
+                                    </Avatar>
+                                </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="master">
-                                M
+                                <Tooltip title="Master">
+                                    <Avatar className={classes.avatarLarge}>
+                                        M
+                                    </Avatar>
+                                </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="principle">
-                                P
+                                <Tooltip title="Principle">
+                                    <Avatar className={classes.avatarLarge}>
+                                        P
+                                    </Avatar>
+                                </Tooltip>
                             </ToggleButton>
-                        </ToggleButtonGroup>
+                        </StyledToggleButtonGroup>
                     </Grid>
                     <Grid id="nps-slab-grid" item container>
                         <Typography id="nps-slab" gutterBottom>
@@ -467,22 +497,6 @@ export default function Home(props) {
             <div className={classes.navigationButtons}>
                 <Button color="primary" onClick={handleResetData}>Reset< /Button>
             </div>
-            <Dialog open={dialogOpen} onClose={handleDialogClose}>
-                <DialogTitle id="select-coach"> Select coach level</DialogTitle>
-                <DialogContent>
-                    <RadioGroup name="coach" defaultValue={coach} value={coach} onChange={handleCoachSelect}>
-                        <FormControlLabel value="junior" control={<Radio/>} label="Junior"/>
-                        <FormControlLabel value="senior" control={<Radio/>} label="Senior"/>
-                        <FormControlLabel value="master" control={<Radio/>} label="Master"/>
-                        <FormControlLabel value="principle" control={<Radio/>} label="Principle"/>
-                    </RadioGroup>
-                </DialogContent>
-                <DialogActions>
-                    <Button color="primary" onClick={handleDialogClose}>
-                        Select
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </Container>
     </div>;
 }
