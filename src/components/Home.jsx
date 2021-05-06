@@ -40,12 +40,10 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3, 0)
     },
     navigationButtons: {
-        marginTop: theme.spacing(5),
-        display: "flex",
-        justifyContent: "stretch"
+        marginTop: theme.spacing(2),
     },
     backNavigationButton: {
-        marginRight: theme.spacing(1)
+        marginLeft: theme.spacing(-1)
     },
     coachSelector: {},
     clients: {
@@ -58,6 +56,14 @@ const useStyles = makeStyles((theme) => ({
     avatarLarge: {
         width: theme.spacing(7),
         height: theme.spacing(7),
+        fontSize: "0.5rem",
+        color: 'black'
+    },
+    testimonialSelectors: {
+        marginRight: theme.spacing(1.5)
+    },
+    textValue: {
+        padding: theme.spacing(0, 1)
     }
 }))
 
@@ -81,13 +87,13 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
         margin: theme.spacing(0.5, 2),
         border: "none",
         "&:not(:first-child)": {
-            width: theme.spacing(11),
-            height: theme.spacing(11),
+            width: theme.spacing(9),
+            height: theme.spacing(9),
             borderRadius: "100%"
         },
         "&:first-child": {
-            width: theme.spacing(11),
-            height: theme.spacing(11),
+            width: theme.spacing(9),
+            height: theme.spacing(9),
             borderRadius: "100%"
         }
     }
@@ -101,7 +107,7 @@ export default function Home(props) {
     const [newSaleRev, setNewSaleRev] = useState(0)
     const [referralRev, setReferralRev] = useState(0)
     const [renewRev, setRenewRev] = useState(0)
-    const [shift, setShift] = useState("shift1")
+    const [shift, setShift] = useState("shift2")
     const [textTestimonials, setTextTestimonials] = useState(0)
     const [videoTestimonials, setVideoTestimonials] = useState(0)
     const [targetAchieved, setTargetAchieved] = useState(false)
@@ -148,7 +154,9 @@ export default function Home(props) {
         setNewSaleRev(0)
         setReferralRev(0)
         setRenewRev(0)
-        setShift("shift1")
+        setShift("shift2")
+        setVideoTestimonials(0)
+        setTextTestimonials(0)
     }
 
     const handleCoachSelect = (e, coachValue) => {
@@ -233,6 +241,8 @@ export default function Home(props) {
                     : 0)
     )
 
+    const testimonialsIncentive = () => textTestimonials * 500 + videoTestimonials * 1000
+
     return <div className={classes.root}>
         <ElevationScroll {...props}>
             <AppBar color="default">
@@ -256,10 +266,10 @@ export default function Home(props) {
         <Toolbar/>
         <Container maxWidth="sm" className={classes.container} component={Paper}>
             <Typography variant="h4" align="center" gutterBottom>
-                Know your incentive
+                {`₹${Math.floor(clientIncentive(activeClients) + revenueIncentive() + testimonialsIncentive() + shiftData[shift].payout[coach])}`}
             </Typography>
             <div className={classes.clients}>
-                <Grid container justify="center" spacing={2}>
+                <Grid container justify="center" spacing={3}>
                     <Grid id="couch-grid" item xs={12} className={classes.coachSelector} container justify="center">
                         <StyledToggleButtonGroup
                             value={coach}
@@ -270,28 +280,28 @@ export default function Home(props) {
                             <ToggleButton value="junior">
                                 <Tooltip title="Junior">
                                     <Avatar className={classes.avatarLarge}>
-                                        J
+                                        Junior
                                     </Avatar>
                                 </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="senior">
                                 <Tooltip title="Senior">
                                     <Avatar className={classes.avatarLarge}>
-                                        S
+                                        Senior
                                     </Avatar>
                                 </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="master">
                                 <Tooltip title="Master">
                                     <Avatar className={classes.avatarLarge}>
-                                        M
+                                        Master
                                     </Avatar>
                                 </Tooltip>
                             </ToggleButton>
                             <ToggleButton value="principle">
-                                <Tooltip title="Principle">
+                                <Tooltip title="Principal">
                                     <Avatar className={classes.avatarLarge}>
-                                        P
+                                        Principal
                                     </Avatar>
                                 </Tooltip>
                             </ToggleButton>
@@ -372,10 +382,10 @@ export default function Home(props) {
                     <Grid id="revenue-grid" item container>
                         <Grid item xs={12} container justify="space-between">
                             <Typography id="revenue-label" gutterBottom>
-                                {`Revenue ( ₹${(Math.round(revenueIncentive() * 100) / 100).toFixed(2)} )`}
+                                {`Revenue ( ₹${Math.floor(revenueIncentive())} )`}
                             </Typography>
                         </Grid>
-                        <Grid item container spacing={4}>
+                        <Grid item container spacing={2}>
                             <Grid item xs={12} sm={4}>
                                 <TextField
                                     id="new-sales-revenue"
@@ -421,26 +431,24 @@ export default function Home(props) {
                                     onChange={handleRenewRevChange}
                                 />
                             </Grid>
+                            <Grid id="checkbox-grid" item xs>
+                                <FormControlLabel
+                                    control={<Checkbox name="checkedH"/>}
+                                    label="I'll hit 100% renewal target"
+                                    onChange={handleTargetReachedChange}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid id="testimonials-grid" item container>
                         <Grid item xs={12}>
                             <Typography id="testimonials-label" gutterBottom>
-                                Testimonials
+                                {`Testimonials ( ₹${testimonialsIncentive()} )`}
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} container alignContent="center">
-                            <Typography variant="body2">
-                                {`Text`}
-                            </Typography>
-                            <IconButton size="small" onClick={() => {
-                                if (textTestimonials < 10)
-                                    setTextTestimonials(textTestimonials + 1)
-                            }}>
-                                <AddIcon fontSize="inherit"/>
-                            </IconButton>
-                            <Typography variant="body2">
-                                {textTestimonials}
+                        <Grid item xs={12} sm={3} container alignContent="center">
+                            <Typography variant="body2" className={classes.testimonialSelectors}>
+                                Text
                             </Typography>
                             <IconButton size="small" onClick={() => {
                                 if (textTestimonials > 0)
@@ -448,25 +456,35 @@ export default function Home(props) {
                             }}>
                                 <RemoveIcon fontSize="inherit"/>
                             </IconButton>
-                        </Grid>
-                        <Grid item xs={12} container alignContent="center">
-                            <Typography variant="body2">
-                                {`Video`}
+                            <Typography variant="body2" color="textSecondary" className={classes.textValue}>
+                                {textTestimonials}
                             </Typography>
                             <IconButton size="small" onClick={() => {
-                                if (videoTestimonials < 10)
-                                    setVideoTestimonials(videoTestimonials + 1)
+                                if (textTestimonials < 10)
+                                    setTextTestimonials(textTestimonials + 1)
                             }}>
                                 <AddIcon fontSize="inherit"/>
                             </IconButton>
-                            <Typography variant="body2">
-                                {videoTestimonials}
+                        </Grid>
+                        <Grid item xs={0} sm={1}/>
+                        <Grid item xs={12} sm={3} container alignContent="center">
+                            <Typography variant="body2" className={classes.testimonialSelectors}>
+                                Video
                             </Typography>
                             <IconButton size="small" onClick={() => {
                                 if (videoTestimonials > 0)
                                     setVideoTestimonials(videoTestimonials - 1)
                             }}>
                                 <RemoveIcon fontSize="inherit"/>
+                            </IconButton>
+                            <Typography variant="body2" color="textSecondary" className={classes.textValue}>
+                                {videoTestimonials}
+                            </Typography>
+                            <IconButton size="small" onClick={() => {
+                                if (videoTestimonials < 10)
+                                    setVideoTestimonials(videoTestimonials + 1)
+                            }}>
+                                <AddIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
                     </Grid>
@@ -485,17 +503,11 @@ export default function Home(props) {
                                               label="Shift 4"/>
                         </RadioGroup>
                     </Grid>
-                    <Grid id="checkbox-grid" item xs>
-                        <FormControlLabel
-                            control={<Checkbox name="checkedH"/>}
-                            label="Renewal target reached"
-                            onChange={handleTargetReachedChange}
-                        />
-                    </Grid>
                 </Grid>
             </div>
             <div className={classes.navigationButtons}>
-                <Button color="primary" onClick={handleResetData}>Reset< /Button>
+                <Button color="primary" className={classes.backNavigationButton}
+                        onClick={handleResetData}>Reset< /Button>
             </div>
         </Container>
     </div>;
