@@ -1,5 +1,5 @@
 import Home from './Home'
-import {createMuiTheme, ThemeProvider} from "@material-ui/core";
+import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 
 const theme = createMuiTheme({
     palette: {
@@ -11,6 +11,7 @@ const theme = createMuiTheme({
 
 function App() {
     return <ThemeProvider theme={theme}>
+        <CssBaseline/>
         <Home/>
     </ThemeProvider>;
 }
