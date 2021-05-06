@@ -7,13 +7,9 @@ import {
     Grid,
     Avatar,
     IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
     RadioGroup,
     FormControlLabel,
     Radio,
-    DialogActions,
     Slider,
     Input,
     TextField,
@@ -25,8 +21,13 @@ import {
 } from "@material-ui/core";
 import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 import {cloneElement, useState} from "react";
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import StarsIcon from '@material-ui/icons/Stars';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import RupeeIcon from "./RupeeIcon";
 import {shift as shiftData, perActiveClientsPayout} from "../constants/Data";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textValue: {
         padding: theme.spacing(0, 1)
+    },
+    iconFrontOfText: {
+        marginRight: theme.spacing(1)
     }
 }))
 
@@ -308,9 +312,12 @@ export default function Home(props) {
                         </StyledToggleButtonGroup>
                     </Grid>
                     <Grid id="nps-slab-grid" item container>
-                        <Typography id="nps-slab" gutterBottom>
-                            NPS Slab
-                        </Typography>
+                        <Grid item xs={12} container>
+                            <StarsIcon className={classes.iconFrontOfText}/>
+                            <Typography id="nps-slab" gutterBottom>
+                                NPS Slab
+                            </Typography>
+                        </Grid>
                         <Grid item xs={12} container>
                             <Grid item xs>
                                 <Slider
@@ -344,9 +351,12 @@ export default function Home(props) {
                         </Grid>
                     </Grid>
                     <Grid id="active-clients-grid" item container>
-                        <Typography id="active-clients" align="justify" gutterBottom>
-                            {`Active Clients ( ₹${clientIncentive(activeClients)} )`}
-                        </Typography>
+                        <Grid item xs={12} container>
+                            <SupervisedUserCircleIcon className={classes.iconFrontOfText}/>
+                            <Typography id="active-clients" gutterBottom>
+                                {`Active Clients ( ₹${clientIncentive(activeClients)} )`}
+                            </Typography>
+                        </Grid>
                         <Grid item xs={12} container>
                             <Grid item xs>
                                 <Slider
@@ -380,7 +390,8 @@ export default function Home(props) {
                         </Grid>
                     </Grid>
                     <Grid id="revenue-grid" item container>
-                        <Grid item xs={12} container justify="space-between">
+                        <Grid item xs={12} container>
+                            <RupeeIcon className={classes.iconFrontOfText}/>
                             <Typography id="revenue-label" gutterBottom>
                                 {`Revenue ( ₹${Math.floor(revenueIncentive())} )`}
                             </Typography>
@@ -441,7 +452,8 @@ export default function Home(props) {
                         </Grid>
                     </Grid>
                     <Grid id="testimonials-grid" item container>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} container>
+                            <ThumbUpIcon className={classes.iconFrontOfText}/>
                             <Typography id="testimonials-label" gutterBottom>
                                 {`Testimonials ( ₹${testimonialsIncentive()} )`}
                             </Typography>
@@ -466,7 +478,7 @@ export default function Home(props) {
                                 <AddIcon fontSize="inherit"/>
                             </IconButton>
                         </Grid>
-                        <Grid item xs={0} sm={1}/>
+                        <Grid item xs={false} sm={1}/>
                         <Grid item xs={12} sm={3} container alignContent="center">
                             <Typography variant="body2" className={classes.testimonialSelectors}>
                                 Video
@@ -488,10 +500,13 @@ export default function Home(props) {
                             </IconButton>
                         </Grid>
                     </Grid>
-                    <Grid id="shift-grid" item xs={12}>
-                        <Typography id="shift-label" gutterBottom>
-                            {`Shift ( ₹${shiftData[shift].payout[coach]} )`}
-                        </Typography>
+                    <Grid id="shift-grid" item xs={12} container>
+                        <Grid item xs={12} container>
+                            <ScheduleIcon className={classes.iconFrontOfText}/>
+                            <Typography id="shift-label" gutterBottom>
+                                {`Shift ( ₹${shiftData[shift].payout[coach]} )`}
+                            </Typography>
+                        </Grid>
                         <RadioGroup aria-label="shift" name="shift" row value={shift} onChange={handleShiftChange}>
                             <FormControlLabel value="shift1" control={<Radio size="small"/>}
                                               label="Shift 1"/>
